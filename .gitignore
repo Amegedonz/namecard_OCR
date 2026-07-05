@@ -1,2 +1,5 @@
-/resources
+/test.py
+*__pycache__
+/.pytest_cache
 /NC_venv
+
