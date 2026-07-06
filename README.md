@@ -6,7 +6,7 @@ Using tools such as Surya as OCR with context building and Opensource AI agents 
 
 Utilised Tools: 
 
-<h1>Surya<h1/>:
+<h1>Surya</h1>:
 
-<h1>React<h1/>: Front end handling, serialising images and handing them over to the headless backend.
+<h1>React</h1>: Front end handling, serialising images and handing them over to the headless backend.
 
