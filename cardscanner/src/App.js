@@ -18,18 +18,13 @@ function Circle() {
 
 function Blank() {
   return(
-    <button className="Blank">
+    <button className="Blank" >
       &nbsp;&nbsp;
     </button>
   )
 }
 
 const StateDB = {
-  blank: {
-    Component: Blank,
-    next: 'square'
-  },
-
   square:{
     Component: Square,
     next: 'circle'
@@ -39,26 +34,35 @@ const StateDB = {
     Component: Circle,
     next: 'square'
   },
+
+  blank: {
+    Component: Blank,
+    next: 'square'
+  }
 };
 
-// const [CurrentShape, setCurrentShape] = useState(() => Square);
-
-// export function ToggleShape(){
- 
-
-//   if (CurrentShape === Square) {
-//     setCurrentShape(() => Circle);
-//   } else {
-//     setCurrentShape(() => Square);
-//   }
-// }
-
 function CreateBoard() {
+  //Setting up the keys to allow for interaction with the DB
+  const [CurrentKey, setCurrentShape] = useState('blank');
+
+  //init currentShape object, grabbing safely 
+  const CurrentShape = StateDB[CurrentKey].Component;
+
+  function SetShape() {
+    const isSquare = useState(true)
+    const nextKey = StateDB[CurrentKey].next;
+    if (isSquare ? <Square/> : <Circle/>)
+    setCurrentShape(nextKey)
+  }
+
   return (
     <>
     <div className="boardRow1">
-      <Blank/>
-      <Blank/>
+      <button onClick={SetShape}>
+
+      </button>
+      <button onClick={SetShape}>
+      </button>
       <Blank/>
     </div>
     <div className="boardRow2">
