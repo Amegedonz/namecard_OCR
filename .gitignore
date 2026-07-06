@@ -3,4 +3,4 @@
 /.pytest_cache
 /NC_venv
 .gitignore
-.DS_store
+.DS_Store
