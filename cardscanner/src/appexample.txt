@@ -1,0 +1,32 @@
+const user = {
+    name: "Lucian",
+    imageUrl: "https://media.licdn.com/dms/image/v2/D5603AQHMlrgwNrfvEQ/profile-displayphoto-crop_800_800/B56Zq1nB_GJ8AI-/0/1763983500190?e=1784764800&v=beta&t=HOswAdOHB_4kf5DEbmvZ4ZOm0JgZd4tOjprhZbc7oM0",
+    imageSize: 90,
+
+}
+
+function UploadCard() {
+  return (
+    <button>
+      Upload Namecard
+    </button>
+  )
+}
+
+export default function cardScanner() {
+    return (
+        <>
+            <h1>User: {user.name}</h1>
+            <img
+                classname = "avatar"
+                src = {user.imageUrl}
+                alt = {"Photo of" + user.name}
+                style = {{
+                    width: user.imageSize,
+                    height: user.imageSize,
+                }}
+            />
+        </>
+    );
+}
+
