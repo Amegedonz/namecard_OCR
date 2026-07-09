@@ -24,7 +24,7 @@ numpy==2.5.0
 openai==1.109.1
 opencv-python-headless==4.11.0.86
 packaging==26.2
-pillow==10.4.0
+pillow==12.3.0
 platformdirs==4.10.0
 pluggy==1.6.0
 pydantic==2.13.4
