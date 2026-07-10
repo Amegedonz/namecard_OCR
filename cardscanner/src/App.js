@@ -2,27 +2,20 @@ import { useState } from 'react'
 
 function Square() { 
   return(
-    <button className="Square">
+    <p className="Square">
       X
-    </button>
+    </p>
   )
 }
 
 function Circle() {
   return(
-    <button className="Circle">
+    <p className="Circle">
       O
-    </button>
+    </p>
   ) 
 }
 
-function Blank() {
-  return(
-    <button className="Blank">
-      &nbsp;&nbsp;
-    </button>
-  )
-}
 
 const StateDB = {
   square:{
@@ -34,64 +27,64 @@ const StateDB = {
     Component: Circle,
     next: 'square'
   },
-
-  blank: {
-    Component: Blank,
-    next: 'square'
-  }
 };
 
+function CreateBoard({currentKey, setCurrentKey}) {
 
-function CreateBoard() {
-  //init currentShape object, grabbing safely 
-  const CurrentShape = StateDB[CurrentKey].Component;
-
-  //Setting up the keys to allow for interaction with the DB
-  const [CurrentKey, setCurrentShape] = useState('square');
-
-  //Function to permenantly set the shape on buttons by forcing the function on the button
-  function SetState(){
-    // press button and sets the button to permenant predefined state:
-    const PermShape = StateDB[CurrentKey].Component;
-    if (PermShape === 'square'){
-      <Square/>
-    } else {
-      <Circle/>
-    }
+  function toggleTurn(){
+    setCurrentKey(StateDB[currentKey].next);
   }
-
-  // function SetShape() {
-  //   const isSquare = useState('square');
-  //   const nextKey = StateDB[CurrentKey].next;
-  //   if (isSquare ? <Square/> : <Circle/>){
-  //     setCurrentShape(nextKey)
-  //   }
-    
-  // }
 
   return (
     <>
     <div className="TopRow">
-      <button onClick={SetState} id="TopRight"></button>
-      <button onClick={SetState} id="TopMiddle"></button>
-      <Blank/>
+      <Cell currentKey={currentKey} toggleTurn={toggleTurn} id={"TopLeft"}/>
+      <Cell currentKey={currentKey} toggleTurn={toggleTurn} id={"TopMiddle"}/>
+      <Cell currentKey={currentKey} toggleTurn={toggleTurn} id={"TopRight"}/>
     </div>
     <div className="boardRow2">
-      <Square/>
-      <Square/>
-      <Square/>
+      <Cell currentKey={currentKey} toggleTurn={toggleTurn} id={"MiddleLeft"}/>
+      <Cell currentKey={currentKey} toggleTurn={toggleTurn} id={"MiddleMiddle"}/>
+      <Cell currentKey={currentKey} toggleTurn={toggleTurn} id={"MiddleRight"}/>
     </div>
     <div className="boardRow3">
-      <Square/>
-      <Square/>
-      <Square/>
+      <Cell currentKey={currentKey} toggleTurn={toggleTurn} id={"BottomLeft"}/>
+      <Cell currentKey={currentKey} toggleTurn={toggleTurn} id={"BottomMiddle"}/>
+      <Cell currentKey={currentKey} toggleTurn={toggleTurn} id={"BottomRight"}/>
     </div>
     </>
     
   )
 }
 
-function CreateInfromationTable(){
+function Cell({currentKey, toggleTurn, id}){
+  const [spaceShape, setSpaceShape] = useState(currentKey)
+
+  function Blank() {
+    return (
+      <button onClick={handleClick} className="play-button" id={id}>
+        &nbsp;&nbsp;
+      </button>
+    )
+  }
+
+  function handleClick(){
+    //do nothing if cell state is not blank
+    if(StateDB[currentKey] === 'blank') return;
+    setSpaceShape(currentKey)
+    toggleTurn();
+  }
+
+  const TargetComponent = StateDB[spaceShape].Component;
+
+  return(
+    <Blank>
+      <TargetComponent/>
+    </Blank>
+  )
+}
+
+function CreateInfromationTable(input){
   function Winner(){
     // to fill
   }
@@ -99,17 +92,19 @@ function CreateInfromationTable(){
   return(
     <>
       <p>
-        Current Player: <CurrentKey/>
+        Current Player: {input.currentKey}
       </p>
     </>
   )
 }
 
 export default function TicTakToe() {
+  const [currentKey, setCurrentKey] = useState('square');
+
   return(
     <div className="Body">
-    <CreateBoard/>
-    <CreateInfromationTable/>
+    <CreateBoard currentKey={currentKey} setCurrentKey={setCurrentKey}/>
+    <CreateInfromationTable currentKey={currentKey} />
     </div>
   )
 }
